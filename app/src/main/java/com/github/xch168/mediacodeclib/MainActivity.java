@@ -149,6 +149,8 @@ public class MainActivity extends AppCompatActivity {
                     // 如果视频数据已经读到结尾，则调用MediaExtractor的seekTo,跳转到视频开头，并且重置解码器
                     boolean reset = ((info.flags & MediaCodec.BUFFER_FLAG_END_OF_STREAM) != 0);
                     if (reset) {
+                        mPrevMonoUsec = 0;
+                        mPrevPresentUsec = 0;
                         mMediaExtractor.seekTo(0, MediaExtractor.SEEK_TO_CLOSEST_SYNC);
                         mDecoder.flush();
                         mDecoder.start();
